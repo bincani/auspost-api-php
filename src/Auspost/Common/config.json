@@ -17,6 +17,13 @@
             "alias": "DeliveryChoice",
             "extends": "default_settings",
             "class": "Auspost\\DeliveryChoice\\DeliveryChoiceClient"
+        },
+
+        "shipping": {
+            "alias": "Shipping",
+            "extends": "default_settings",
+            "class": "Auspost\\Shipping\\ShippingClient"
         }
+        
     }
 }

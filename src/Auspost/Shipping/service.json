@@ -1,0 +1,16 @@
+{
+    "operations": {
+        "GetItemPrices": {
+            "httpMethod": "POST",
+            "uri": "shipping/v1/prices/items",
+            "summary": "This interface retrieves valid postage products and pricing based upon the merchant location address, destination, and details of the parcel.",
+            "parameters": {
+                "data": {
+                    "required": true,
+                    "type": "string",
+                    "location": "body"
+                }
+            }
+        }
+    }
+}

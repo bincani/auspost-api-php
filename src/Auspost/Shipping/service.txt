@@ -1,0 +1,17 @@
+    GetShipments
+    CreateShipments
+    UpdateShipment
+    UpdateItems
+    DeleteShipment
+    DeleteItem
+    GetOrder
+    CreateOrderFromShipments
+    CreateOrderIncludingShipments
+    GetOrderSummary
+    GetDangerousGoodsForm
+    GetShipmentPrice
+    CreateLabels
+    GetLabel
++   ValidateSuburb
+    TrackItems
+    CreatePayment

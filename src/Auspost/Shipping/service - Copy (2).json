@@ -1,0 +1,291 @@
+{
+    "name": "Shipping and Tracking Services",
+    "apiVersion": "v1 Nov16",
+    "baseUrl": "https://digitalapi.auspost.com.au/shipping/v1",
+    "description": "Australia Post Shipping and Tracking Services",
+    "models": {},
+    "includes": [],
+    "operations": {
+        "GetAccounts": {
+            "httpMethod": "GET",
+            "uri": "shipping/v1/accounts/{account_number}",
+            "summary": "This interface retrieves information regarding the requestor's charge account and the postage products that the charge account is able to use.",
+            "parameters": {
+                "account_number": {
+                    "location": "uri",
+                    "description": "Account number used to retrieve accounts",
+                    "required": true,
+                    "type": "string"
+                }
+            }
+        },
+        "GetItemPrices": {
+            "httpMethod": "POST",
+            "uri": "shipping/v1/prices/items",
+            "summary": "This interface retrieves valid postage products and pricing based upon the merchant location address, destination, and details of the parcel.",
+            "parameters": {
+                "from": {
+                    "location": "json",
+                    "required": true,
+                    "type": "oject",
+                    "postcode": {
+                        "required": true,
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "CreateShipments": {
+            "httpMethod": "POST",
+            "uri": "shipping/v1/shipments",
+            "summary": "This interface creates a shipment with items and returns a summary of the pricing for the items.",
+            "parameters": {
+                "shipments": {
+                    "required": true,
+                    "type": "string",
+                    "location": "body"
+                }
+            }
+        },
+        "CreateLabels": {
+            "httpMethod": "POST",
+            "uri": "shipping/v1/labels",
+            "summary": "This service initiates the generation of labels for the requested shipments that have been previously created using the Create Shipments service.",
+            "parameters": {
+                "preferences": {
+
+                },
+                "shipments": {
+                }
+            }
+        },
+        "GetLabel": {
+            "httpMethod": "GET",
+            "uri": "shipping/v1/labels/{request_id}",
+            "summary": "This service returns information on a label request created using the Create Labels service.",
+            "parameters": {
+                "request_id": {
+                    "location": "uri",
+                    "description": "the label to retrieve by id",
+                    "required": true,
+                    "type": "string"
+                }
+            }
+        },
+        "ValidateSuburb": {
+            "httpMethod": "GET",
+            "uri": "shipping/v1/address",
+            "summary": "This service validates a suburb, state, and postcode combination for an Australian postal address and returns the valid suburbs for the given state and postcode.",
+            "parameters": {
+                "suburb": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "state": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "postcode": {
+                    "required": true,
+                    "type": "integer",
+                    "location": "query"
+                }
+            }
+        },
+        "ListInternationalLetterServices": {
+            "httpMethod": "GET",
+            "uri": "postage/letter/international/service",
+            "parameters": {
+                "country_code": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "weight": {
+                    "required": false,
+                    "type": "number",
+                    "location": "query"
+                }
+            }
+        },
+        "ListInternationalParcelServices": {
+            "httpMethod": "GET",
+            "uri": "postage/parcel/international/service",
+            "parameters": {
+                "country_code": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "weight": {
+                    "required": true,
+                    "type": "number",
+                    "location": "query"
+                }
+            }
+        },
+        "SearchPostcode": {
+            "httpMethod": "GET",
+            "uri": "postcode/search",
+            "parameters": {
+                "q": {
+                    "required": true,
+                    "type": ["integer", "string"],
+                    "location": "query"
+                },
+                "state": {
+                    "required": false,
+                    "type": "string",
+                    "location": "query"
+                },
+                "exclude_post_box_flag": {
+                    "required": false,
+                    "type": "boolean",
+                    "location": "query",
+                    "sentAs": "excludePostBoxFlag"
+                }
+            }
+        },
+        "CalculateDomesticLetterPostage": {
+            "httpMethod": "GET",
+            "uri": "postage/letter/domestic/calculate",
+            "parameters": {
+                "service_code": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "weight": {
+                    "required": true,
+                    "type": "number",
+                    "location": "query"
+                },
+                "option_code": {
+                    "required": false,
+                    "type": "string",
+                    "location": "query"
+                },
+                "suboption_code": {
+                    "required": false,
+                    "type": "string",
+                    "location": "query"
+                },
+                "extra_cover": {
+                    "required": false,
+                    "type": "integer",
+                    "location": "query"
+                }
+            }
+        },
+        "CalculateDomesticParcelPostage": {
+            "httpMethod": "GET",
+            "uri": "postage/parcel/domestic/calculate",
+            "parameters": {
+                "from_postcode": {
+                    "required": true,
+                    "type": "integer",
+                    "location": "query"
+                },
+                "to_postcode": {
+                    "required": true,
+                    "type": "integer",
+                    "location": "query"
+                },
+                "length": {
+                    "required": true,
+                    "type": "integer",
+                    "location": "query"
+                },
+                "width": {
+                    "required": true,
+                    "type": "integer",
+                    "location": "query"
+                },
+                "height": {
+                    "required": true,
+                    "type": "integer",
+                    "location": "query"
+                },
+                "weight": {
+                    "required": true,
+                    "type": "number",
+                    "location": "query"
+                },
+                "service_code": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "option_code": {
+                    "required": false,
+                    "type": "string",
+                    "location": "query"
+                },
+                "suboption_code": {
+                    "required": false,
+                    "type": "string",
+                    "location": "query"
+                },
+                "extra_cover": {
+                    "required": false,
+                    "type": "integer",
+                    "location": "query"
+                }
+            }
+        },
+        "CalculateInternationalLetterPostage": {
+            "httpMethod": "GET",
+            "uri": "postage/letter/international/calculate",
+            "parameters": {
+                "country_code": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "service_code": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "weight": {
+                    "required": false,
+                    "type": "number",
+                    "location": "query"
+                }
+            }
+        },
+        "CalculateInternationalParcelPostage": {
+            "httpMethod": "GET",
+            "uri": "postage/parcel/international/calculate",
+            "parameters": {
+                "country_code": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "weight": {
+                    "required": true,
+                    "type": "number",
+                    "location": "query"
+                },
+                "service_code": {
+                    "required": true,
+                    "type": "string",
+                    "location": "query"
+                },
+                "option_code": {
+                    "required": false,
+                    "type": "string",
+                    "location": "query"
+                },
+                "extra_cover": {
+                    "required": false,
+                    "type": "integer",
+                    "location": "query"
+                }
+            }
+        }
+    }
+}

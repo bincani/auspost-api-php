@@ -1,0 +1,87 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "GetItemPrices",
+    "type": "object",
+    "properties": {
+        "from": {
+            "type": "object",
+            "properties": {
+                "postcode": {
+                    "type": "number",
+                    "minimum": 200,
+                    "maximum": 9999
+                },
+                "suburb": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string",
+                    "default": "AU"
+                }
+            },
+            "required": ["postcode"]
+        },
+        "to": {
+            "type": "object",
+            "properties": {
+                "postcode": {
+                    "type": "number",
+                    "minimum": 200,
+                    "maximum": 9999
+                },
+                "suburb": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string",
+                    "default": "AU"
+                }
+            },
+            "required": ["postcode"]
+        },
+        "items": {
+            "type": "object",
+            "properties": {
+                "item_reference": {
+                    "type": "string"
+                },
+                "length": {
+                    "type": "number"
+                },
+                "width": {
+                    "type": "number"
+                },
+                "height": {
+                    "type": "number"
+                },
+                "weight": {
+                    "type": "number"
+                },
+                "packaging_type": {
+                
+                },
+                "product_ids": {
+                
+                },
+                "features": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "attributes": {
+                            "type": "object",
+                            "properties": {
+                                "cover_amount": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": ["type"]
+            }
+        }
+    },
+    "required": ["from","to"]
+}
