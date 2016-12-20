@@ -86,24 +86,25 @@ class ShippingClient extends Client
         $client->getEventDispatcher()->addListener(
             'request.before_send',
             function (Event $event) {
-
+                $body = "";
                 // set correct headers
                 if (is_object(json_decode($event['request']->getBody()))) {
                     $event['request']->setHeader('Content-Type', 'application/json');
+                    $body = json_decode($event['request']->getBody());
                 }
+                echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
 
                 //$request->setHeader('X-FactoryX', 'test');
 
                 //echo sprintf("event: %s", print_r($event, true));
-                $request = $event['request'];
+
                 //$request->setHeader('Content-Length', 0);
-                echo sprintf("%s->body: %s\n", __METHOD__, $request->getBody());
 
                 //echo sprintf("request: %s", get_class($request));
                 //echo sprintf("url: %s", $request->getUrl());
-                if (preg_match("/shipping\/v1\/prices\/items$/", $request->getUrl())) {
+                if (preg_match("/shipping\/v1\/prices\/items$/", $event['request']->getUrl())) {
                     $service = new GetItemPrices([]);
-                    $validate = $service->validateRequest($request->getBody());
+                    $validate = $service->validateRequest($body);
                     echo sprintf("%s->validate: %s", __METHOD__, print_r($validate, true));
                     die();
                 }

@@ -44,7 +44,7 @@ class GetItemPrices extends ServiceDescription
      */
     public function __construct($config) {
         parent::__construct($config);
-        $this->schemaPath = realpath(__DIR__ . '/request.json');
+        $this->schemaPath = realpath(__DIR__ . '/GetItemPrices/request.json');
         echo sprintf("%s->schemaPath: %s\n", __METHOD__, $this->schemaPath);
         //$this->schema = json_encode(file_get_contents($this->schemaPath));
         $this->schema = (object)['$ref' => 'file://' . $this->schemaPath];
@@ -58,12 +58,13 @@ class GetItemPrices extends ServiceDescription
         // Validate
         $validator = new Validator();
 
-        echo sprintf("%s->schema: %s\n", __METHOD__, print_r($this->schema, true));
+        //echo sprintf("%s->data: %s\n", __METHOD__, print_r($data, true));
+        //echo sprintf("%s->schema: %s\n", __METHOD__, print_r($this->schema, true));
         $validator->check($data, $this->schema);
         $retVal = true;
         if (!$validator->isValid()) {
             foreach ($validator->getErrors() as $error) {
-                echo sprintf("[%s] %s\n", $error['property'], $error['message']);
+                echo sprintf("Error: [%s] %s\n", $error['property'], $error['message']);
             }
             $retVal = $validator->getErrors();
         }
