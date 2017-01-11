@@ -23,6 +23,10 @@
  * @license    http://opensource.org/licenses/LGPL-3.0 GNU Lesser General Public License (LGPL 3.0)
  */
 
+$accountNo = $_SERVER['ACCOUNT_NO'];
+$apiUser = $_SERVER['API_USER'];
+$apiPassword = $_SERVER['API_PASSWORD'];
+
 // Include the composer autoloader
 $loader = require dirname(__DIR__) . '/vendor/autoload.php';
 $loader->add('Auspost\Tests', __DIR__);
@@ -31,7 +35,28 @@ $loader->add('Auspost\Tests', __DIR__);
 Guzzle\Tests\GuzzleTestCase::setMockBasePath(__DIR__ . '/mock');
 
 // Instantiate the service builder
-$auspost = \Auspost\Common\Auspost::factory(array('developer_mode' => true));
+$auspost = \Auspost\Common\Auspost::factory(array(
+        'developer_mode' => true,
+        'account_no' => $accountNo,
+        'auth_key' => $apiUser,
+        'auth_pass' => $apiPassword
+    )
+);
+
+/*
+$auspost = \Guzzle\Service\Builder\ServiceBuilder::factory(array(
+        'shipping' => array(
+            'class' => 'Guzzle.Unfuddle.UnfuddleClient',
+            'params' => array(
+                'developer_mode' => true,
+                'account_no' => $accountNo,
+                'auth_key' => $apiUser,
+                'auth_pass' => $apiPassword
+            )
+        )
+    )
+);    
+*/
 
 // Configure the tests to use the instantiated Auspost service builder
 Guzzle\Tests\GuzzleTestCase::setServiceBuilder($auspost);
