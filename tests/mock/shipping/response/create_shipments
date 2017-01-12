@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1091
+Connection: close
+
+{"shipments":[{"shipment_id":"940e467a46724f328cbbb9fd","shipment_reference":"XYZ-001-01","shipment_creation_date":"2017-01-12T15:51:11+11:00","email_tracking_enabled":true,"items":[{"item_id":"a141d46cc6edc813a9b0d21d","item_reference":"SKU-1","tracking_details":{"article_id":"ABC000128437C","consignment_id":"ABC000128"},"product_id":"T28S","item_summary":{"total_cost":20.70,"total_gst":1.88,"status":"Created"},"item_contents":[]},{"item_id":"3a97abbb1a063b24e7221a6f","item_reference":"SKU-2","tracking_details":{"article_id":"ABC00012844FD","consignment_id":"ABC000128"},"product_id":"T28S","item_summary":{"total_cost":20.70,"total_gst":1.88,"status":"Created"},"item_contents":[]},{"item_id":"0dd20bdea3d540eaca06da6d","item_reference":"SKU-3","tracking_details":{"article_id":"ABC000128BFAF","consignment_id":"ABC000128"},"product_id":"T28S","item_summary":{"total_cost":20.70,"total_gst":1.88,"status":"Created"},"item_contents":[]}],"options":{},"shipment_summary":{"total_cost":62.11,"total_gst":5.65,"status":"Created","tracking_summary":{"Created":3},"number_of_items":3}}]}

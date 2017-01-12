@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 26 Jul 2013 06:43:15 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=3B5D07955AC71B75C096FF5EE1002B50.jvm1; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 32
+Connection: close
+
+{"found": false,"results": []}

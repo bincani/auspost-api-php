@@ -34,12 +34,17 @@ class AuspostTest extends \Guzzle\Tests\GuzzleTestCase
     public function provider()
     {
         return array(
+            array('shipping', array(
+                'account_no'    => '1007235676',
+                'auth_key'      => 'e29dbb62-1571-43fc-a513-22129aa2aae7',
+                'auth_pass'     => 'xc535e18cb1e1efd20b8'
+            )),
             array('deliverychoice', array(
                 'email_address' => 'gaben@valvesoftware.com',
-                'password' => 'MoolyFTW'
+                'password'      => 'MoolyFTW'
             )),
             array('postage', array(
-                'auth_key' => 'e53060fe-01e4-4b50-bed4-b0335f71a9bb'
+                'auth_key'      => 'e53060fe-01e4-4b50-bed4-b0335f71a9bb'
             ))
         );
     }

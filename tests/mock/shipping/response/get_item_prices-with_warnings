@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1338
+Connection: close
+
+{"items":[{"weight":0.5,"height":5.0,"length":5.0,"width":5.0,"prices":[{"product_id":"E34","product_type":"EXPRESS POST","options":{"signature_on_delivery_option":false,"authority_to_leave_option":true,"dangerous_goods_allowed":true},"calculated_price":42.70,"calculated_gst":3.88,"bundled_price":37.45,"bundled_gst":3.40,"features":{"TRANSIT_COVER":{"type":"TRANSIT_COVER","attributes":{"rate":1.5,"cover_amount":3000,"included_cover":1,"maximum_cover":5000},"price":{"calculated_price":45.00,"calculated_gst":4.09}}}},{"product_id":"T28S","product_type":"PARCEL POST W/SIGNATURE","options":{"signature_on_delivery_option":true,"authority_to_leave_option":true,"dangerous_goods_allowed":true},"calculated_price":9.00,"calculated_gst":0.82,"bundled_price":8.00,"bundled_gst":0.73},{"product_id":"E34S","product_type":"EXPRESS POST W/SIGNATURE","options":{"signature_on_delivery_option":true,"authority_to_leave_option":true,"dangerous_goods_allowed":false},"calculated_price":34.94,"calculated_gst":3.18,"bundled_price":29.68,"bundled_gst":2.70}],"warnings":[{"code":"66002","name":"UNABLE_TO_CALCULATE_PRICE","message":"The service T28V1N0 is not available based upon the submitted weight of 5 kg."},{"code":"42002","name":"NO_PRICES_FOR_PRODUCT","message":"The service {0} is not available based upon the information submitted."}]}]}
