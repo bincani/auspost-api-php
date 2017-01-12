@@ -26,6 +26,7 @@ namespace Auspost\Shipping\Service;
 
 use JsonSchema\Validator;
 
+use \Exception;
 #use Guzzle\Common\Collection;
 #use Guzzle\Common\Event;
 #use Guzzle\Service\Client;
@@ -46,6 +47,9 @@ class GetItemPrices extends ServiceDescription
         parent::__construct($config);
         $this->schemaPath = realpath(__DIR__ . '/GetItemPrices/request.json');
         echo sprintf("%s->schemaPath: %s\n", __METHOD__, $this->schemaPath);
+        if (!file_exists($this->schemaPath)) {
+            throw new Exception(sprintf("schema file '%s' not found", $this->schemaPath));
+        }
         //$this->schema = json_encode(file_get_contents($this->schemaPath));
         $this->schema = (object)['$ref' => 'file://' . $this->schemaPath];
     }
@@ -69,7 +73,6 @@ class GetItemPrices extends ServiceDescription
             $retVal = $validator->getErrors();
         }
         echo sprintf("%s->retVal: %s\n", __METHOD__, print_r($retVal, true)) ;
-        die();
         return $retVal;
     }
 }
