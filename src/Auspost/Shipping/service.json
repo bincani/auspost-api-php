@@ -1,7 +1,6 @@
 {
     "name": "Shipping and Tracking Services",
     "apiVersion": "v1 Nov16",
-    "baseUrl": "https://digitalapi.auspost.com.au/shipping/v1",
     "description": "Australia Post Shipping and Tracking Services",
     "models": {},
     "includes": [],
@@ -24,7 +23,7 @@
             "uri": "shipping/v1/prices/items",
             "summary": "This interface retrieves valid postage products and pricing based upon the merchant location address, destination, and details of the parcel.",
             "parameters": {
-                "data": {
+                "body": {
                     "required": true,
                     "type": "string",
                     "location": "body"
@@ -36,7 +35,7 @@
             "uri": "shipping/v1/shipments",
             "summary": "This interface creates a shipment with items and returns a summary of the pricing for the items.",
             "parameters": {
-                "shipments": {
+                "body": {
                     "required": true,
                     "type": "string",
                     "location": "body"
