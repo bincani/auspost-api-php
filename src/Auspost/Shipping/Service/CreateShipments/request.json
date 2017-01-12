@@ -3,6 +3,25 @@
     "title": "CreateShipments",
     "description": "This interface creates a shipment with items and returns a summary of the pricing for the items.",
     "type": "object",
+    "definitions": {
+        "feature": {
+            "_comment": "used to define items features",
+            "description": "Name of the feature. Eg: TRANSIT_COVER.",
+            "type": "object",
+            "properties": {
+                "attributes": {
+                    "description": "Additional information about the feature. Please note that attributes depend on the feature.",
+                    "type": "object",
+                    "properties": {
+                        "cover_amount": {
+                            "description": "Cover amount",
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        }
+    },
     "properties": {
         "shipments": {
             "type": "array",
@@ -287,24 +306,9 @@
                                     "description": "Additional features for the item.",
                                     "type": "object",
                                     "properties": {
-                                        "name": {
-                                            "description": "Name of the feature. Eg: TRANSIT_COVER.",
-                                            "type": "object",
-                                            "properties": {
-                                                "attributes": {
-                                                    "description": "Additional information about the feature. Please note that attributes depend on the feature.",
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "cover_amount": {
-                                                            "description": "Cover amount",
-                                                            "type": "number"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "required": ["name"]
+                                        "TRANSIT_COVER": {"$ref": "#/definitions/feature"},
+                                        "FOO_BAR": {"$ref": "#/definitions/feature"}
+                                    }
                                 },                                  
                                 "tracking_details": {
                                     "description": "The merchant can optionally define the specific consignment, article, and barcode identifiers for the item. If this information is not supplied, Australia Post will generate the identifiers. Important note: if you are generating your own identifiers you must adhere to the specifications provided by Australia Post.",
