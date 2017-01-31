@@ -30,11 +30,71 @@
                 }
             }
         },
+        "GetShipments": {
+            "httpMethod": "GET",
+            "uri": "shipping/v1/shipments",
+            "summary": "This service retrieves the information against shipments and the items contained within for shipments created using the Create Shipments interface.",
+            "parameters": {
+                "shipment_ids": {
+                    "location": "query",
+                    "description": "A comma separated list of shipment ids",
+                    "required": false,
+                    "type": "string"
+                },
+                "offset": {
+                    "location": "query",
+                    "description": "The offset parameter value specifies the numeric value of the first record to be returned in the result, beginning at 0. If you specify the offset parameter, you must also specify the number_of_shipments parameter.",
+                    "required": false,
+                    "type": "number"
+                },
+                "number_of_shipments": {
+                    "location": "query",
+                    "description": "The number_of_shipments parameter specifies the number of records to return in the result. If you specify the number_of_shipments parameter, you must also specify the offset parameter.",
+                    "required": false,
+                    "type": "number"
+                },
+                "status": {
+                    "location": "query",
+                    "description": "Setting the status parameter will result in the list returned only containing shipments that are at the given status. The parameter will accept one or more status values separated by a comma. E.g. status=CREATED,INITIATED",
+                    "required": false,
+                    "type": "string"
+                },
+                "despatch_date": {
+                    "location": "query",
+                    "description": "Setting the despatch_date parameter will result in the list returned only containing shipments that have one of the values as despatch_date. The parameter will accept one or more despatch_date values in the format of yyyy-MM-dd separated by a comma. E.g. despatch_date=2016-04-04,2015-12-31",
+                    "required": false,
+                    "type": "string"
+                },
+                "sender_reference": {
+                    "location": "query",
+                    "description": "Setting the sender_reference parameter will result in the list returned only containing shipments that have one of the values as sender_reference. The parameter will accept one or more sender_reference values separated by a comma. E.g. sender_reference=MYREF-12345",
+                    "required": false,
+                    "type": "string"
+                }
+            }
+        },
         "CreateShipments": {
             "httpMethod": "POST",
             "uri": "shipping/v1/shipments",
             "summary": "This interface creates a shipment with items and returns a summary of the pricing for the items.",
             "parameters": {
+                "body": {
+                    "required": true,
+                    "type": "string",
+                    "location": "body"
+                }
+            }
+        },
+        "UpdateShipment": {
+            "httpMethod": "PUT",
+            "uri": "shipping/v1/shipments/{shipment_id}",
+            "summary": "This service updates an existing shipment that has previously been created using the Create Shipment interface.",
+            "parameters": {
+                "shipment_id": {
+                    "required": true,
+                    "type": "string",
+                    "location": "uri"
+                },
                 "body": {
                     "required": true,
                     "type": "string",
@@ -89,196 +149,50 @@
                 }
             }
         },
-        "ListInternationalLetterServices": {
+        "TrackItems": {
             "httpMethod": "GET",
-            "uri": "postage/letter/international/service",
+            "uri": "shipping/v1/track",
             "parameters": {
-                "country_code": {
+                "tracking_ids": {
+                    "location": "query",
+                    "description": "A comma separated list of tracking numbers",
                     "required": true,
-                    "type": "string",
-                    "location": "query"
-                },
-                "weight": {
-                    "required": false,
-                    "type": "number",
-                    "location": "query"
+                    "type": "string"
+
                 }
             }
         },
-        "ListInternationalParcelServices": {
-            "httpMethod": "GET",
-            "uri": "postage/parcel/international/service",
+        "CreatePayment": {
+            "httpMethod": "POST",
+            "uri": "shipping/v1/payments",
             "parameters": {
-                "country_code": {
+                "order_id": {
                     "required": true,
                     "type": "string",
-                    "location": "query"
+                    "location": "json"
                 },
-                "weight": {
+                "payment_method": {
                     "required": true,
-                    "type": "number",
-                    "location": "query"
-                }
-            }
-        },
-        "SearchPostcode": {
-            "httpMethod": "GET",
-            "uri": "postcode/search",
-            "parameters": {
-                "q": {
+                    "type": "string",
+                    "location": "json"
+                },
+                "payment_reference": {
                     "required": true,
                     "type": ["integer", "string"],
-                    "location": "query"
+                    "location": "json"
                 },
-                "state": {
-                    "required": false,
-                    "type": "string",
-                    "location": "query"
-                },
-                "exclude_post_box_flag": {
-                    "required": false,
-                    "type": "boolean",
-                    "location": "query",
-                    "sentAs": "excludePostBoxFlag"
-                }
-            }
-        },
-        "CalculateDomesticLetterPostage": {
-            "httpMethod": "GET",
-            "uri": "postage/letter/domestic/calculate",
-            "parameters": {
-                "service_code": {
-                    "required": true,
-                    "type": "string",
-                    "location": "query"
-                },
-                "weight": {
+                "attributes": {
                     "required": true,
                     "type": "number",
-                    "location": "query"
-                },
-                "option_code": {
-                    "required": false,
-                    "type": "string",
-                    "location": "query"
-                },
-                "suboption_code": {
-                    "required": false,
-                    "type": "string",
-                    "location": "query"
-                },
-                "extra_cover": {
-                    "required": false,
-                    "type": "integer",
-                    "location": "query"
-                }
-            }
-        },
-        "CalculateDomesticParcelPostage": {
-            "httpMethod": "GET",
-            "uri": "postage/parcel/domestic/calculate",
-            "parameters": {
-                "from_postcode": {
-                    "required": true,
-                    "type": "integer",
-                    "location": "query"
-                },
-                "to_postcode": {
-                    "required": true,
-                    "type": "integer",
-                    "location": "query"
-                },
-                "length": {
-                    "required": true,
-                    "type": "integer",
-                    "location": "query"
-                },
-                "width": {
-                    "required": true,
-                    "type": "integer",
-                    "location": "query"
-                },
-                "height": {
-                    "required": true,
-                    "type": "integer",
-                    "location": "query"
-                },
-                "weight": {
-                    "required": true,
-                    "type": "number",
-                    "location": "query"
-                },
-                "service_code": {
-                    "required": true,
-                    "type": "string",
-                    "location": "query"
-                },
-                "option_code": {
-                    "required": false,
-                    "type": "string",
-                    "location": "query"
-                },
-                "suboption_code": {
-                    "required": false,
-                    "type": "string",
-                    "location": "query"
-                },
-                "extra_cover": {
-                    "required": false,
-                    "type": "integer",
-                    "location": "query"
-                }
-            }
-        },
-        "CalculateInternationalLetterPostage": {
-            "httpMethod": "GET",
-            "uri": "postage/letter/international/calculate",
-            "parameters": {
-                "country_code": {
-                    "required": true,
-                    "type": "string",
-                    "location": "query"
-                },
-                "service_code": {
-                    "required": true,
-                    "type": "string",
-                    "location": "query"
-                },
-                "weight": {
-                    "required": false,
-                    "type": "number",
-                    "location": "query"
-                }
-            }
-        },
-        "CalculateInternationalParcelPostage": {
-            "httpMethod": "GET",
-            "uri": "postage/parcel/international/calculate",
-            "parameters": {
-                "country_code": {
-                    "required": true,
-                    "type": "string",
-                    "location": "query"
-                },
-                "weight": {
-                    "required": true,
-                    "type": "number",
-                    "location": "query"
-                },
-                "service_code": {
-                    "required": true,
-                    "type": "string",
-                    "location": "query"
-                },
-                "option_code": {
-                    "required": false,
-                    "type": "string",
-                    "location": "query"
-                },
-                "extra_cover": {
-                    "required": false,
-                    "type": "integer",
-                    "location": "query"
+                    "location": "json",
+                    "parameters": {
+                        "account_number": {
+                            "required": true,
+                            "type": ["integer", "string"],
+                            "location": "json",
+                            "sentAs": "account-number"
+                        }
+                    }
                 }
             }
         }

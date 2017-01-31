@@ -26,6 +26,7 @@ namespace Auspost\Shipping;
 
 use Auspost\Shipping\Service\GetItemPrices;
 use Auspost\Shipping\Service\CreateShipments;
+use Auspost\Shipping\Service\UpdateShipment;
 use Guzzle\Common\Collection;
 use Guzzle\Common\Event;
 use Guzzle\Service\Client;
@@ -162,20 +163,37 @@ class ShippingClient extends Client
                     echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
                 }
 
-                if (preg_match("/shipping\/v1\/shipments$/", $event['request']->getPath())) {
+                if (
+                    preg_match("/shipping\/v1\/shipments$/", $event['request']->getPath())
+                    &&
+                    $event['request']->getMethod() === 'POST'
+                ) {
                     $service = new CreateShipments([]);
                     $body = json_decode($event['request']->getBody());
                     //echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
                     $validate = $service->validateRequest($event['request']->getBody());
                     echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
                 }
-/*
+
+                if (
+                    preg_match("/shipping\/v1\/shipments\/[a-z0-9]+$/i", $event['request']->getPath())
+                    &&
+                    $event['request']->getMethod() === 'PUT'
+                ) {
+                    $service = new UpdateShipment([]);
+                    $body = json_decode($event['request']->getBody());
+                    echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
+                    $validate = $service->validateRequest($body);
+                    echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                }
+
+                /*
                 if (preg_match("/labels$/", $request->getUrl())) {
                     $testCreateLabels = file_get_contents("/var/www/factoryx/bincani/austpost/auspost-api-php/testCreateLabels.json");
                     $request->setBody($testCreateLabels);
                     echo sprintf("%s->body: %s", __METHOD__, $request->getBody());
                 }
-*/
+                */
             }
         );
 
