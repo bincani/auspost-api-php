@@ -100,12 +100,12 @@
                                 "maxLength": 2
                             },
                             "phone": {
-                                "description": "The sender’s phone number.",
+                                "description": "The sender's phone number.",
                                 "type": "string",
                                 "maxLength": 20
                             },
                             "email": {
-                                "description": "The sender’s email address.",
+                                "description": "The sender's email address.",
                                 "type": "string",
                                 "maxLength": 50
                             }
@@ -132,7 +132,7 @@
                                 "maxLength": 40
                             },
                             "type": {
-                                "description": "The type of address. Valid values are: PARCEL_LOCKER – an address with this type represents an Australia Post Parcel Locker. PARCEL_COLLECT – an address with this type represents an Australia Post Parcel Collection location. STANDARD_ADDRESS – an address with this type represents a normal delivery address.",
+                                "description": "The type of address. Valid values are: PARCEL_LOCKER - an address with this type represents an Australia Post Parcel Locker. PARCEL_COLLECT - an address with this type represents an Australia Post Parcel Collection location. STANDARD_ADDRESS - an address with this type represents a normal delivery address.",
                                 "type": "string"
                             },
                             "lines": {
@@ -176,12 +176,12 @@
                                 "maxLength": 2
                             },
                             "phone": {
-                                "description": "The sender’s phone number.",
+                                "description": "The sender's phone number.",
                                 "type": "string",
                                 "maxLength": 20
                             },
                             "email": {
-                                "description": "The sender’s email address.",
+                                "description": "The sender's email address.",
                                 "type": "string",
                                 "maxLength": 50
                             },
@@ -278,7 +278,7 @@
                                     "type": "number"
                                 },
                                 "weight": {
-                                    "description": "The parcel’s weight in kilograms. This is mandatory for normal shipments (movement_type = DESPATCH) but must not be specified for returns shipments (movement_type = RETURN).",
+                                    "description": "The parcel's weight in kilograms. This is mandatory for normal shipments (movement_type = DESPATCH) but must not be specified for returns shipments (movement_type = RETURN).",
                                     "type": "number"
                                 },
                                 "contains_dangerous_goods": {
