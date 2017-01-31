@@ -104,7 +104,7 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
     }
 
     public function getItemPricesProvider() {
-        $path = "/var/www/factoryx/bincani/austpost/auspost-api-php/tests/mock/shipping/request/get_item_prices.json";
+        $path = sprintf("%s/tests/mock/shipping/request/get_item_prices.json", getcwd());
         $body = json_encode(file_get_contents($path));
         return array(
             array(
@@ -131,7 +131,7 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
     }
 
     public function createShipmentsProvider() {
-        $path = "/var/www/factoryx/bincani/austpost/auspost-api-php/tests/mock/shipping/request/create_shipments.json";
+        $path = sprintf("%s/tests/mock/shipping/request/create_shipments.json", getcwd());
         $body = json_encode(file_get_contents($path));
         return array(
             array(
