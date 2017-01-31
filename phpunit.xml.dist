@@ -13,9 +13,9 @@
         <!-- Specify the path to a service configuration file -->
         <server name="CONFIG" value="test_services.json" />
         <!-- Or, specify each require parameter individually -->
-        <server name="ACCOUNT_NO" value="1007235676" />
-        <server name="API_USER" value="e29dbb62-1571-43fc-a513-22129aa2aae7" />
-        <server name="API_PASSWORD" value="xc535e18cb1e1efd20b8" />
+        <server name="ACCOUNT_NO" value="" />
+        <server name="API_USER" value="" />
+        <server name="API_PASSWORD" value="" />
     </php>         
          
     <testsuites>
