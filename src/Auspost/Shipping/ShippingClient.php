@@ -40,19 +40,23 @@ class ShippingClient extends Client
 {
     const API_URL = 'https://digitalapi.auspost.com.au';
 
+    /**
+     * @param array $config
+     * @return ShippingClient
+     */
     public static function factory($config = array())
     {
         if(in_array('--debug', $_SERVER['argv'], true)) {
             echo sprintf("%s->config: %s\n", __METHOD__, print_r($config, true));
         }
+
         if (isset($config['developer_mode']) && is_bool($config['developer_mode'])) {
             $developerMode = $config['developer_mode'];
             $config['base_url'] = self::API_URL . "/testbed";
 
             //$developerMode = false;
             //$config['base_url'] = self::API_URL;
-        }
-        else {
+        } else {
             $developerMode = false;
             $config['base_url'] = self::API_URL;
         }
@@ -76,6 +80,7 @@ class ShippingClient extends Client
         if(in_array('--debug', $_SERVER['argv'], true)) {
             echo sprintf("%s->base_url: %s\n", __METHOD__, $config['base_url']);
         }
+
         $client =  new self($config['base_url'], $config);
 
         $client->getConfig()->setPath(
@@ -93,6 +98,7 @@ class ShippingClient extends Client
         if(in_array('--debug', $_SERVER['argv'], true)) {
             echo sprintf("%s->servicePath: %s\n", __METHOD__, $servicePath);
         }
+
         $client->setDescription(ServiceDescription::factory($servicePath));
         $client->setSslVerification(false);
 
@@ -114,6 +120,7 @@ class ShippingClient extends Client
             if(in_array('--debug', $_SERVER['argv'], true)) {
                 echo sprintf("ShippingClient.addListener[event: %s]\n", $event);
             }
+
             $client->getEventDispatcher()->addListener(
                 $event,
                 function (Event $event) {

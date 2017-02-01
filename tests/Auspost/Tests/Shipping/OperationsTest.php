@@ -25,10 +25,14 @@
 namespace Auspost\Tests\Shipping;
 
 use Auspost\Shipping\ShippingClient;
-use Auspost\Shipping\Enum\AddressState;
+#use Auspost\Shipping\Enum\AddressState;
 #use Auspost\Shipping\Enum\DeliveryNetwork;
 #use Auspost\Shipping\Enum\State;
 
+/**
+ * Class OperationsTest
+ * @package Auspost\Tests\Shipping
+ */
 class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
 {
     /** @var ShippingClient */
@@ -43,14 +47,21 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
     /**
      * @dataProvider validateSuburbProvider
      * @group internet
+     * @param $mock
+     * @param $args
      */
-    public function testValidateSuburb($mock, $args) {
+    public function testValidateSuburb($mock, $args)
+    {
         $this->setMockResponse($this->client, $mock);
         $response = $this->client->ValidateSuburb($args);
         $this->assertTrue($response['found']);
     }
 
-    public function validateSuburbProvider() {
+    /**
+     * @return array
+     */
+    public function validateSuburbProvider()
+    {
         return array(
             array(
                 $mockPath = array('shipping/response/address_valid'),
@@ -66,21 +77,30 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
     /**
      * @dataProvider invalidateSuburbProvider
      * @group internet
+     * @param $mock
+     * @param $args
      */
-    public function testInvalidateSuburb($mock, $args) {
+    public function testInvalidateSuburb($mock, $args)
+    {
         if($this->isDebug()) {
             echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
             //echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
         }
+
         $this->setMockResponse($this->client, $mock);
         $response = $this->client->ValidateSuburb($args);
         if($this->isDebug()) {
             echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
         }
+
         $this->assertFalse($response['found']);
     }
 
-    public function invalidateSuburbProvider() {
+    /**
+     * @return array
+     */
+    public function invalidateSuburbProvider()
+    {
         return array(
             array(
                 $mockPath = array('shipping/response/address_invalid_state'),
@@ -96,12 +116,16 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
     /**
      * @dataProvider getItemPricesProvider
      * @group internet
+     * @param $mock
+     * @param $args
      */
-    public function testGetItemPrices($mock, $args) {
+    public function testGetItemPrices($mock, $args)
+    {
         if($this->isDebug()) {
             echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
             //echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
         }
+
         $this->setMockResponse($this->client, $mock);
         $response = $this->client->GetItemPrices($args);
         //echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
@@ -109,7 +133,11 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertArrayHasKey('items', $response);
     }
 
-    public function getItemPricesProvider() {
+    /**
+     * @return array
+     */
+    public function getItemPricesProvider()
+    {
         $path = sprintf("%s/tests/mock/shipping/request/get_item_prices.json", getcwd());
         $body = json_encode(file_get_contents($path));
         return array(
@@ -125,12 +153,16 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
     /**
      * @dataProvider createShipmentsProvider
      * @group internet
+     * @param $mock
+     * @param $args
      */
-    public function testCreateShipments($mock, $args) {
+    public function testCreateShipments($mock, $args)
+    {
         if($this->isDebug()) {
             echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
             echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
         }
+
         $this->setMockResponse($this->client, $mock);
         $response = $this->client->CreateShipments($args);
         //echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
@@ -138,7 +170,11 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertArrayHasKey('shipments', $response);
     }
 
-    public function createShipmentsProvider() {
+    /**
+     * @return array
+     */
+    public function createShipmentsProvider()
+    {
         $path = sprintf("%s/tests/mock/shipping/request/create_shipments.json", getcwd());
         $body = json_encode(file_get_contents($path));
         return array(

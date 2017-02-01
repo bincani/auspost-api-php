@@ -33,6 +33,8 @@ use \Exception;
 use Guzzle\Service\Description\ServiceDescription;
 
 /**
+ * Class CreateShipments
+ * @package Auspost\Shipping\Service
  */
 class CreateShipments extends ServiceDescription
 {
@@ -42,16 +44,20 @@ class CreateShipments extends ServiceDescription
     /**
      * ShippingServiceGetItemPrices constructor.
      * @param array $config
+     * @throws Exception
      */
-    public function __construct($config) {
+    public function __construct($config)
+    {
         parent::__construct($config);
         $this->schemaPath = realpath(__DIR__ . '/CreateShipments/request.json');
         if($this->isDebug()) {
             echo sprintf("%s->schemaPath: %s\n", __METHOD__, $this->schemaPath);
         }
+
         if (!file_exists($this->schemaPath)) {
             throw new Exception(sprintf("schema file '%s' not found", $this->schemaPath));
         }
+
         //$this->schema = json_encode(file_get_contents($this->schemaPath));
         $this->schema = (object)['$ref' => 'file://' . $this->schemaPath];
     }
@@ -60,14 +66,16 @@ class CreateShipments extends ServiceDescription
      * @param $data
      * @return bool
      */
-    public function validateRequest($data) {
+    public function validateRequest($data)
+    {
         // Validate
         $validator = new Validator();
 
         if($this->isDebug()) {
             echo sprintf("%s->data: %s\n", __METHOD__, print_r($data, true));
+            //echo sprintf("%s->schema: %s\n", __METHOD__, print_r($this->schema, true));
         }
-        //echo sprintf("%s->schema: %s\n", __METHOD__, print_r($this->schema, true));
+
         $validator->check($data, $this->schema);
         $retVal = true;
         if (!$validator->isValid()) {
@@ -78,9 +86,11 @@ class CreateShipments extends ServiceDescription
             }
             $retVal = $validator->getErrors();
         }
+
         if($this->isDebug()) {
             echo sprintf("%s->retVal: %s\n", __METHOD__, print_r($retVal, true));
         }
+
         return $retVal;
     }
 
