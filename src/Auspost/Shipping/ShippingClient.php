@@ -42,7 +42,9 @@ class ShippingClient extends Client
 
     public static function factory($config = array())
     {
-        echo sprintf("%s->config: %s\n", __METHOD__, print_r($config, true));
+        if(in_array('--debug', $_SERVER['argv'], true)) {
+            echo sprintf("%s->config: %s\n", __METHOD__, print_r($config, true));
+        }
         if (isset($config['developer_mode']) && is_bool($config['developer_mode'])) {
             $developerMode = $config['developer_mode'];
             $config['base_url'] = self::API_URL . "/testbed";
@@ -71,7 +73,9 @@ class ShippingClient extends Client
         $config = Collection::fromConfig($config, $default, $required);
 
         //$config['base_url'] = 'https://httpbin.org';
-        echo sprintf("%s->base_url: %s\n", __METHOD__, $config['base_url']);
+        if(in_array('--debug', $_SERVER['argv'], true)) {
+            echo sprintf("%s->base_url: %s\n", __METHOD__, $config['base_url']);
+        }
         $client =  new self($config['base_url'], $config);
 
         $client->getConfig()->setPath(
@@ -86,7 +90,9 @@ class ShippingClient extends Client
         $client->getConfig()->setPath('request.options/headers/Connection', 'close');
 
         $servicePath = __DIR__ . '/service.json';
-        echo sprintf("%s->servicePath: %s\n", __METHOD__, $servicePath);
+        if(in_array('--debug', $_SERVER['argv'], true)) {
+            echo sprintf("%s->servicePath: %s\n", __METHOD__, $servicePath);
+        }
         $client->setDescription(ServiceDescription::factory($servicePath));
         $client->setSslVerification(false);
 
@@ -102,18 +108,22 @@ class ShippingClient extends Client
         request.sent
         request.clone
         request.before_send
-        setValidator();        
+        setValidator();
         */
         foreach($client->getAllEvents() as $event) {
-            echo sprintf("ShippingClient.addListener[event: %s]\n", $event);
+            if(in_array('--debug', $_SERVER['argv'], true)) {
+                echo sprintf("ShippingClient.addListener[event: %s]\n", $event);
+            }
             $client->getEventDispatcher()->addListener(
                 $event,
                 function (Event $event) {
-                    echo sprintf("%s->ShippingClient.event: %s\n", __METHOD__, $event->getName());
-                    if ($event['request']) {
-                        echo sprintf("%s->ShippingClient.event: %s\n", __METHOD__, $event['request']->getUrl());
+                    if(in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->ShippingClient.event: %s\n", __METHOD__, $event->getName());
+                        if ($event['request']) {
+                            echo sprintf("%s->ShippingClient.event: %s\n", __METHOD__, $event['request']->getUrl());
+                        }
+                        //echo sprintf("%s->event: %s\n", __METHOD__, print_r($event, true));
                     }
-                    //echo sprintf("%s->event: %s\n", __METHOD__, print_r($event, true));
                 }
             );
         }
@@ -124,8 +134,10 @@ class ShippingClient extends Client
         $client->getEventDispatcher()->addListener(
             'request.sent',
             function (Event $event) {
-                echo sprintf("%s->event: %s\n", __METHOD__, $event->getName());
-                echo sprintf("%s->getResponseBody: %s\n", __METHOD__, $event['request']->getResponseBody() );
+                if(in_array('--debug', $_SERVER['argv'], true)) {
+                    echo sprintf("%s->event: %s\n", __METHOD__, $event->getName());
+                    echo sprintf("%s->getResponseBody: %s\n", __METHOD__, $event['request']->getResponseBody());
+                }
             }
         );
 
@@ -137,19 +149,20 @@ class ShippingClient extends Client
                 //$request->setHeader('X-FactoryX', 'test');
                 //$request->setHeader('Content-Length', 0);
                 // $event['request']->setHeader('Content-Type', 'application/json');
+                if(in_array('--debug', $_SERVER['argv'], true)) {
+                    echo sprintf("request.path: %s\n", $event['request']->getPath());
+                    echo sprintf("request.url: %s\n", $event['request']->getUrl());
+                    echo sprintf("request.state: %s\n", $event['request']->getState());
+                    echo sprintf("request.method: %s\n", $event['request']->getMethod());
+                    echo sprintf("request.query: %s\n", $event['request']->getQuery());
 
-                echo sprintf("request.path: %s\n", $event['request']->getPath() );
-                echo sprintf("request.url: %s\n", $event['request']->getUrl() );
-                echo sprintf("request.state: %s\n", $event['request']->getState() );
-                echo sprintf("request.method: %s\n", $event['request']->getMethod() );
-                echo sprintf("request.query: %s\n", $event['request']->getQuery() );
+                    // check if Guzzle\Http\Message\Request has a json body to validate
+                    echo sprintf("%s->request: %s\n", __METHOD__, get_class($event['request']));
 
-                // check if Guzzle\Http\Message\Request has a json body to validate
-                echo sprintf("%s->request: %s\n", __METHOD__, get_class($event['request']) );
-
-                //echo sprintf("event: %s", print_r($event, true));
-                //echo sprintf("request: %s", get_class($request));
-                //echo sprintf("url: %s", $request->getUrl());
+                    //echo sprintf("event: %s", print_r($event, true));
+                    //echo sprintf("request: %s", get_class($request));
+                    //echo sprintf("url: %s", $request->getUrl());
+                }
 
                 if (preg_match("/shipping\/v1\/address$/", $event['request']->getPath()) ) {
 
@@ -160,7 +173,9 @@ class ShippingClient extends Client
                     $body = json_decode($event['request']->getBody());
                     //echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
                     $validate = $service->validateRequest($event['request']->getBody());
-                    echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                    if(in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                    }
                 }
 
                 if (
@@ -172,7 +187,9 @@ class ShippingClient extends Client
                     $body = json_decode($event['request']->getBody());
                     //echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
                     $validate = $service->validateRequest($event['request']->getBody());
-                    echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                    if(in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                    }
                 }
 
                 if (
@@ -182,16 +199,22 @@ class ShippingClient extends Client
                 ) {
                     $service = new UpdateShipment([]);
                     $body = json_decode($event['request']->getBody());
-                    echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
+                    if(in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
+                    }
                     $validate = $service->validateRequest($body);
-                    echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                    if(in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                    }
                 }
 
                 /*
                 if (preg_match("/labels$/", $request->getUrl())) {
                     $testCreateLabels = file_get_contents("/var/www/factoryx/bincani/austpost/auspost-api-php/testCreateLabels.json");
                     $request->setBody($testCreateLabels);
-                    echo sprintf("%s->body: %s", __METHOD__, $request->getBody());
+                    if(in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->body: %s", __METHOD__, $request->getBody());
+                    }
                 }
                 */
             }

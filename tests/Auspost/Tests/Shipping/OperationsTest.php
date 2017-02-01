@@ -68,11 +68,15 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
      * @group internet
      */
     public function testInvalidateSuburb($mock, $args) {
-        echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
-        //echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            //echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
         $this->setMockResponse($this->client, $mock);
         $response = $this->client->ValidateSuburb($args);
-        echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
         $this->assertFalse($response['found']);
     }
 
@@ -94,8 +98,10 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
      * @group internet
      */
     public function testGetItemPrices($mock, $args) {
-        echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
-        //echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            //echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
         $this->setMockResponse($this->client, $mock);
         $response = $this->client->GetItemPrices($args);
         //echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
@@ -121,8 +127,10 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
      * @group internet
      */
     public function testCreateShipments($mock, $args) {
-        echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
-        echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
         $this->setMockResponse($this->client, $mock);
         $response = $this->client->CreateShipments($args);
         //echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
@@ -141,6 +149,14 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
                 )
             )
         );
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isDebug()
+    {
+        return in_array('--debug', $_SERVER['argv'], true);
     }
 
 }
