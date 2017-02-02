@@ -30,6 +30,25 @@
                 }
             }
         },
+        "DeleteItem": {
+            "httpMethod": "DELETE",
+            "uri": "shipping/v1/shipments/{shipment_id}/items/{item_id}",
+            "summary": "This service deletes an item in a shipment for shipments that have not been included in an order.",
+            "parameters": {
+                "shipment_id": {
+                    "required": true,
+                    "type": "string",
+                    "location": "uri",
+                    "description": "The shipmentId parameter refers to the unique Australia Post generated shipment_id"
+                },
+                "item_id": {
+                    "required": true,
+                    "type": "string",
+                    "location": "uri",
+                    "description": "The itemId parameter refers to the unique Australia Post generated item_id"
+                }
+            }
+        },
         "GetShipments": {
             "httpMethod": "GET",
             "uri": "shipping/v1/shipments",
@@ -99,6 +118,25 @@
                     "required": true,
                     "type": "string",
                     "location": "body"
+                }
+            }
+        },
+        "DeleteShipment": {
+            "httpMethod": "DELETE",
+            "uri": "shipping/v1/shipments/{shipment_id}",
+            "summary": " This service deletes one or more shipments that have not been included in an order.",
+            "parameters": {
+                "shipment_id": {
+                    "required": false,
+                    "type": "string",
+                    "description": "The shipment id you wish to delete",
+                    "location": "uri"
+                },
+                "shipment_ids": {
+                    "required": false,
+                    "type": "string",
+                    "description": "A comma separated list of shipment ids",
+                    "location": "uri"
                 }
             }
         },

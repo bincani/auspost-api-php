@@ -1,0 +1,10 @@
+{
+    "shipments":[
+        {
+            "shipment_reference":"XYZ-001-01",
+            "customer_reference_1":"Order 001",
+            "customer_reference_2":"SKU-1, SKU-2, SKU-3",
+            "email_tracking_enabled":true,
+        }
+    ]
+}

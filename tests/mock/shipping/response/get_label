@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1091
+Connection: close
+
+{"labels": [{"request_id ": "d9d1445d-cd1b-452d-9d68-29dbb3967acf","url": "https://auspost.com.au/d9d1445d-cd1b-452d-9d68-29dbb3967acf.pdf?Expires=1458273129&Signature=Mww3Oxd%2BV2d9SjoQkrIr%2F%2F2DrFs%3D","status": "AVAILABLE","request_date": "2016-03-17 11:04:29","url_creation_date": "2016-03-17 11:04:53","shipment_ids": ["9lesEAOvOm4AAAFI3swaDRYB", "NdgK1EV5cRgAAAFThhoE7mN6"]}]}

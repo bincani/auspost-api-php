@@ -1,0 +1,70 @@
+{
+    "shipment_reference": "My first shipment",
+    "customer_reference_2": "cb2345",
+    "email_tracking_enabled":true,
+    "from": {
+        "name": "John Citizen",
+        "lines": [
+            "1 Main Street"
+        ],
+        "suburb": "Melbourne",
+        "postcode": "3000",
+        "state": "VIC",
+        "phone": "0401234567",
+        "email":"john.citizen@citizen.com"
+    },
+    "to": {
+        "name": "Jane Citizen",
+        "business_name": "Abc Pty Ltd",
+        "lines": [
+            "Level 1",
+            "1 Smith Street"
+        ],
+        "suburb": "Sydney",
+        "state": "VIC",
+        "postcode": "2000",
+        "phone": "0312345678",
+        "email":"jane.smith@smith.com"
+    },
+    "items": [
+        {
+            "item_id": "5249da67f0a1b66825f7499f",
+            "length": "10",
+            "height": "10",
+            "width": "10",
+            "weight": "10",
+            "item_reference": "SKU-1",
+            "product_id": "T28S",
+            "authority_to_leave": false,
+            "allow_partial_delivery": true,
+            "features": {
+                "TRANSIT_COVER": {
+                    "attributes": {
+                        "cover_amount":1000
+                    }
+                }
+            }
+        },
+        {
+            "item_id": "d2d037761cbe4dda2f61de51",
+            "length": "10",
+            "height": "10",
+            "width": "10",
+            "weight": "10",
+            "item_reference": "SKU-2",
+            "product_id": "T28S",
+            "authority_to_leave": false,
+            "allow_partial_delivery": true
+        },
+        {
+            "length": "10",
+            "height": "10",
+            "width": "10",
+            "weight": "10",
+            "item_reference": "SKU-3",
+            "product_id": "T28S",
+            "authority_to_leave": false,
+            "allow_partial_delivery": true
+        }
+    ]
+}

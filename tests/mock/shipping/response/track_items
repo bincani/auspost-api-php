@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1091
+Connection: close
+
+{"tracking_results": [{"tracking_id": "7XX1000","errors": [{"code": "ESB-10001","name": "Invalid tracking ID"}]},{"tracking_id": "7XX1000634011427","status": "Delivered","trackable_items": [{"article_id": "7XX1000634011427","product_type": "eParcel","events": [{"location": "ALEXANDRIA NSW","description": "Delivered","date": "2014-05-30T14:43:09+10:00"},{"location": "ALEXANDRIA NSW","description": "With Australia Post for delivery today","date": "2014-05-30T06:08:51+10:00"},{"location": "CHULLORA NSW","description": "Processed through Australia Post facility","date": "2014-05-29T19:40:19+10:00"},{"location": "SYDNEY (AU)","description": "Arrived at facility in destination country","date": "2014-05-29T10:16:00+10:00"},{"location": "JOHN F. KENNEDY APT\/NEW YORK (US)","description": "Departed facility","date": "2014-05-26T05:00:00+10:00"},{"location": "JOHN F. KENNEDY APT\/NEW YORK (US)","description": "Departed facility","date": "2014-05-26T05:00:00+10:00"},{"description": "Shipping information approved by Australia Post","date": "2014-05-23T14:27:15+10:00"}]}]}]}
