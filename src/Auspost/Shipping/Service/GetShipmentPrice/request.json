@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "CreateLabels",
-    "description": "This service initiates the generation of labels for the requested shipments that have been previously created using the Create Shipments service.",
+    "description": "This service initiates the generation of labels for the requested shipments that have been previously created using the Get Shipment Price service.",
     "type": "object",
     "properties": {
    }

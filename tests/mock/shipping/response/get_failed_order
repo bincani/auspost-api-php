@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1091
+Connection: close
+
+{"errors": [{"code": "44026","name": "ORDER_NOT_FOUND","message": "An order with order id AP0000002422 cannot be found. Please check that the identifier is correct and submit the request again.","context": {}}]}

@@ -700,8 +700,491 @@ class OperationsTest extends \Guzzle\Tests\GuzzleTestCase
             array(
                 $mockPath = array('shipping/response/delete_item'),
                 array(
-                    'shipment_id '    =>  '9lesEAOvOm4AAAFI3swaDRYB',
+                    'shipment_id'    =>  '9lesEAOvOm4AAAFI3swaDRYB',
                     'item_id'         =>  'TkGsEAOv9a4AAAFI8MwaDRYB'
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider deleteFailedItemProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testDeleteFailedItem($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->DeleteItem($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('errors', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function deleteFailedItemProvider()
+    {
+        return array(
+            array(
+                $mockPath = array('shipping/response/delete_failed_item'),
+                array(
+                    'shipment_id'    =>  '9lesEAOvOm4AAAFI3swaDRYB',
+                    'item_id'         =>  ''
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getShipmentPriceProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testGetShipmentPrice($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->GetShipmentPrice($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('shipments', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function getShipmentPriceProvider()
+    {
+        $path = sprintf("%s/tests/mock/shipping/request/get_shipment_price.json", getcwd());
+        $body = json_encode(file_get_contents($path));
+        return array(
+            array(
+                $mockPath = array('shipping/response/get_shipment_price'),
+                array(
+                    'body' => $body
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getFailedShipmentPriceProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testGetFailedShipmentPrice($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->GetShipmentPrice($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('errors', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFailedShipmentPriceProvider()
+    {
+        $path = sprintf("%s/tests/mock/shipping/request/get_shipment_price.json", getcwd());
+        $body = json_encode(file_get_contents($path));
+        return array(
+            array(
+                $mockPath = array('shipping/response/get_failed_shipment_price'),
+                array(
+                    'body' => $body
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getOrderProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testGetOrder($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->GetOrder($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('order', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrderProvider()
+    {
+        return array(
+            array(
+                $mockPath = array('shipping/response/get_order'),
+                array(
+                    'order_id' => "AP0000002422"
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getFailedOrderProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testGetFailedOrder($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->GetOrder($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('errors', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFailedOrderProvider()
+    {
+        return array(
+            array(
+                $mockPath = array('shipping/response/get_failed_order'),
+                array(
+                    'order_id' => "AP0000002422"
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider createOrderFromShipmentsProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testCreateOrderFromShipments($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->CreateOrderFromShipments($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('order', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function createOrderFromShipmentsProvider()
+    {
+        $path = sprintf("%s/tests/mock/shipping/request/create_order_from_shipments.json", getcwd());
+        $body = json_encode(file_get_contents($path));
+        return array(
+            array(
+                $mockPath = array('shipping/response/create_order_from_shipments'),
+                array(
+                    'body' => $body
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider createFailedOrderFromShipmentsProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testCreateFailedOrderFromShipments($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->CreateOrderFromShipments($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('errors', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function createFailedOrderFromShipmentsProvider()
+    {
+        $path = sprintf("%s/tests/mock/shipping/request/create_failed_order_from_shipments.json", getcwd());
+        $body = json_encode(file_get_contents($path));
+        return array(
+            array(
+                $mockPath = array('shipping/response/create_failed_order_from_shipments'),
+                array(
+                    'body' => $body
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider createOrderIncludingShipmentsProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testCreateOrderIncludingShipments($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->CreateOrderIncludingShipments($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('order', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function createOrderIncludingShipmentsProvider()
+    {
+        $path = sprintf("%s/tests/mock/shipping/request/create_order_including_shipments.json", getcwd());
+        $body = json_encode(file_get_contents($path));
+        return array(
+            array(
+                $mockPath = array('shipping/response/create_order_including_shipments'),
+                array(
+                    'body' => $body
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider createFailedOrderIncludingShipmentsProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testCreateFailedOrderIncludingShipments($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->CreateOrderIncludingShipments($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('errors', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function createFailedOrderIncludingShipmentsProvider()
+    {
+        $path = sprintf("%s/tests/mock/shipping/request/create_order_including_shipments.json", getcwd());
+        $body = json_encode(file_get_contents($path));
+        return array(
+            array(
+                $mockPath = array('shipping/response/create_failed_order_including_shipments'),
+                array(
+                    'body' => $body
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getOrderSummaryProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testGetOrderSummary($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->GetOrderSummary($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertEquals('application/pdf', $response->getContentType());
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrderSummaryProvider()
+    {
+        return array(
+            array(
+                $mockPath = array('shipping/response/get_order_summary'),
+                array(
+                    'account_number' => "0000123456",
+                    'order_id'      => "AP0000002422",
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getFailedOrderSummaryProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testGetFailedOrderSummary($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->GetOrderSummary($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('errors', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFailedOrderSummaryProvider()
+    {
+        return array(
+            array(
+                $mockPath = array('shipping/response/get_failed_order_summary'),
+                array(
+                    'account_number' => "0000123456",
+                    'order_id'      => "AP0000002422",
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getDangerousGoodsFormProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testGetDangerousGoodsForm($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->GetDangerousGoodsForm($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertEquals('application/pdf', $response->getContentType());
+    }
+
+    /**
+     * @return array
+     */
+    public function getDangerousGoodsFormProvider()
+    {
+        return array(
+            array(
+                $mockPath = array('shipping/response/get_dangerous_goods_form'),
+                array(
+                    'shipment_id' => "KfYK1ED2zLMAAAFW1ngExk70"
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getFailedDangerousGoodsFormProvider
+     * @group internet
+     * @param $mock
+     * @param $args
+     */
+    public function testGetFailedDangerousGoodsForm($mock, $args)
+    {
+        if($this->isDebug()) {
+            echo sprintf("%s->mock: %s\n", __METHOD__, print_r($mock, true));
+            echo sprintf("%s->args: %s\n", __METHOD__, print_r($args, true));
+        }
+
+        $this->setMockResponse($this->client, $mock);
+        $response = $this->client->GetDangerousGoodsForm($args);
+        if($this->isDebug()) {
+            echo sprintf("%s->response: %s\n", __METHOD__, print_r($response, true));
+        }
+        $this->assertArrayHasKey('errors', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFailedDangerousGoodsFormProvider()
+    {
+        return array(
+            array(
+                $mockPath = array('shipping/response/get_failed_dangerous_goods_form'),
+                array(
+                    'shipment_id' => "3_sK1Eg62x8AAAFWMSkExk7w2"
                 )
             )
         );

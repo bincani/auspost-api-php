@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1091
+Connection: close
+
+{"order":{"order_id":"AP0000002422","order_reference":"XYZ-001","order_creation_date":"2014-08-27T13:55:47+10:00","order_summary":{"total_cost":74,"total_gst":6.73,"status":"Initiated","tracking_summary":{"Initiated":1},"number_of_shipments":1},"shipments":[{"shipment_id":"m.cK1UrU_t0AAAFSz8ZKdt.K","email_tracking_enabled":true,"from":{"type":"MERCHANT_LOCATION","lines":["1 Main Street"],"suburb":"Blackburn","postcode":"3130","state":"VIC","name":"John Citizen","email":"john.citizen@citizen.com","phone":"0401234567"},"to":{"lines":["123 Centre Road"],"suburb":"Sydney","postcode":"2000","state":"NSW","name":"Jane Smith","business_name":"Smith Pty Ltd","email":"jane.smith@smith.com","phone":"0412345678"},"shipment_summary":{"total_cost":37,"total_gst":3.36,"status":"Sealed","tracking_summary":{"Initiated":1},"number_of_items":1}}],"payment_method": "CHARGE_TO_ACCOUNT"}}

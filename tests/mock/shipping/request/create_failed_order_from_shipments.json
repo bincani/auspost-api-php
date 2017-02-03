@@ -1,0 +1,9 @@
+{
+  "order_reference":"My order reference",
+  "payment_method":"CHARGE_TO_ACCOUNT",
+  "shipments": [
+    {
+      "shipment_id": "mrKsEAOvKWEAAAFH_s82k9cR"
+    }
+  ]
+}

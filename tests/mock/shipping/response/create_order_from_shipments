@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1091
+Connection: close
+
+{"order":{"order_id":"AP0000002422","order_reference":"My order reference","order_creation_date":"2014-08-27T13:55:47+10:00","order_summary":{"total_cost":63.1,"total_gst":5.74,"status":"Initiated","tracking_summary":{"Initiated":1},"number_of_shipments":1},"shipments":[{"shipment_id":"gskK1UrUQPMAAAFSUuRKdt9Y","email_tracking_enabled":false,"shipment_summary":{"total_cost":7.2,"total_gst":0.65,"status":"Sealed","tracking_summary":{"Sealed":1},"number_of_items":1}}],"payment_method":"CHARGE_TO_ACCOUNT"}}

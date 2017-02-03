@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1091
+Connection: close
+
+{"shipments": [{"shipment_reference": "XYZ-001-01","customer_reference_1": "Order 001","customer_reference_2": "SKU-1, SKU-2, SKU-3","sender_references": ["Order 001","SKU-1, SKU-2, SKU-3"],"email_tracking_enabled": true,"from": {"type": "MERCHANT_LOCATION","lines": ["1 Main Street"],"suburb": "MELBOURNE","postcode": "3000","state": "VIC","name": "John Citizen","country": "AU","email": "john.citizen@citizen.com","phone": "0401234567"},"to": {"lines": ["123 Centre Road"],"suburb": "Sydney","postcode": "2000","state": "NSW","name": "Jane Smith","business_name": "Smith Pty Ltd","country": "AU","email": "jane.smith@smith.com","phone": "0412345678"},"items": [{"weight": 1,"height": 10,"length": 10,"width": 10,"product_id": "T28S"},{"weight": 1,"height": 10,"length": 10,"width": 10,"product_id": "T28S"},{"weight": 1,"height": 10,"length": 10,"width": 10,"product_id": "T28S"}],"options": {},"shipment_summary": {"total_cost": 64.61,"freight_charge": 45.98,"transit_cover": 8.25,"fuel_surcharge": 4.51,"total_gst": 5.87,"tracking_summary": {},"number_of_items": 4},"movement_type": "DESPATCH"}]}

@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 16 Dec 2016 08:00:00 GMT
+Cache-Control: public
+Pragma: public
+Set-Cookie: JSESSIONID=AB0C0C3B097023383D131DC59BADDAAF.jvm2; Path=/myapi; Secure; HttpOnly
+Content-Type: application/json;version=1
+Content-Length: 1091
+Connection: close
+
+{"errors": [{"code": "42012","name": " PRODUCT_NOT_SUPPORTED_BY_CONTRACT_ERROR","message": "The product T288 you have entered is not available on your contract for the destination postcode. For further assistance, please contact your Account Manager or call Australia Post on 13 21 31.","context": {"product_id": "T288","location_id": "0000123456"}}]}
