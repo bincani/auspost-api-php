@@ -4,5 +4,57 @@
     "description": "This service initiates the generation of labels for the requested shipments that have been previously created using the Create Shipments service.",
     "type": "object",
     "properties": {
-   }
+        "preferences": {
+            "type": "array",
+            "items": {
+                "properties": {
+                    "type": {
+                        "description": "For printing preferences the type is “PRINT”.",
+                        "type": "string"
+                    },
+                    "groups": {
+                        "description": "The required page format for the labels.",
+                        "type": "array",
+                        "properties": {
+                            "group": {
+                                "description": "The label group to apply the print preference. Valid types are: Parcel Post, Express Post & StarTrack",
+                                "type": "string"
+                            },
+                            "layout": {
+                                "description": "The layout specifies the number of labels per page and the size of the page. The layout must be valid for the product types of the items in the shipment. Valid Layouts are: A4-1pp, A4-3pp, A4-4pp & A6-1pp. The following additional layouts are only available with StarTrack products: A4-2pp, A4-1pp landscape & A4-2pp landscape",
+                                "type": "string"
+                            },
+                            "branded": {
+                                "description": "Whether the Australia Post branding should be included on the labels. If you are using purchased stationary from Australia Post, then the generated labels should not include the branding. ",
+                                "type": "boolean"
+                            },
+                            "left_offset": {
+                                "description": "Use this field to adjust the left margin of the page.",
+                                "type": "integer"
+                            },
+                            "top_offset": {
+                                "description": "Use this field to adjust the top margin of the page.",
+                                "type": "integer"
+                            },
+                        },
+                        "required": ["group","layout","branded","left_offset","top_offset"]
+                    }
+                },
+                "required": ["type","groups"]
+            }
+        },
+        "shipments": {
+            "description": "Each shipment to have labels generated will be listed. The print preferences will be applied to the items in the shipments. ",
+            "type": "array",
+            "properties": {
+                "shipment_id": {
+                    "description": "The Australia Post generated unique identifier for the shipment.",
+                    "type": "string",
+                    "maxLength": 50
+                }
+            },
+            "required": ["shipment_id"]
+        }
+    },
+    "required": ["preferences","shipments"]
 }
