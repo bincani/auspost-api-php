@@ -99,6 +99,6 @@ class CreateShipments extends ServiceDescription
      */
     protected function isDebug()
     {
-        return in_array('--debug', $_SERVER['argv'], true);
+        return array_key_exists('argv', $_SERVER) && in_array('--debug', $_SERVER['argv'], true);
     }
 }

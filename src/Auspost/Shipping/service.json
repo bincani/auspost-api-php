@@ -157,10 +157,10 @@
             "uri": "shipping/v1/labels",
             "summary": "This service initiates the generation of labels for the requested shipments that have been previously created using the Create Shipments service.",
             "parameters": {
-                "preferences": {
-
-                },
-                "shipments": {
+                "body": {
+                    "required": true,
+                    "type": "string",
+                    "location": "body"
                 }
             }
         },
