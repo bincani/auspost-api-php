@@ -24,27 +24,35 @@
  */
 namespace Auspost\Shipping\Service;
 
+use JsonSchema\Validator;
+
 use \Exception;
-use Auspost\Shipping\Service\AbstractShippingService;
+use Guzzle\Service\Description\ServiceDescription;
 
 /**
- * Class GetItemPrices
+ * Class AbstractShippingService
  * @package Auspost\Shipping\Service
  */
-class GetItemPrices extends AbstractShippingService
+class AbstractShippingService extends ServiceDescription
 {
+    protected $schema;
+    protected $schemaPath;
+
     /**
-     * ShippingServiceGetItemPrices constructor.
-     * @param array $config
+     * @param $data
+     * @return bool
      */
-    public function __construct($config)
+    public function validateRequest($data)
     {
-        parent::__construct($config);
-        $this->schemaPath = realpath(__DIR__ . '/GetItemPrices/request.json');
-        if (!file_exists($this->schemaPath)) {
-            throw new Exception(sprintf("schema file '%s' not found", $this->schemaPath));
+        // Validate
+        $validator = new Validator();
+
+        $validator->check($data, $this->schema);
+        $retVal = true;
+        if (!$validator->isValid()) {
+            $retVal = $validator->getErrors();
         }
 
-        $this->schema = (object)['$ref' => 'file://' . $this->schemaPath];
+        return $retVal;
     }
 }
