@@ -64,6 +64,9 @@ class AddressState extends Enum
         if (!preg_grep(sprintf("/%s/i", $state), self::$states)) {
             throw new \Exception(sprintf("cannot normalise state '%s'!", $stateString));
         }
+        else {
+            $state = strtoupper($state);
+        }
         return $state;
     }
 }
