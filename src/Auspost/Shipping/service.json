@@ -302,9 +302,9 @@
                 },
                 "attributes": {
                     "required": true,
-                    "type": "number",
+                    "type": "object",
                     "location": "json",
-                    "parameters": {
+                    "properties": {
                         "account_number": {
                             "required": true,
                             "type": ["integer", "string"],

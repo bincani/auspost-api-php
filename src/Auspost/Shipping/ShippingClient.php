@@ -26,7 +26,13 @@ namespace Auspost\Shipping;
 
 use Auspost\Shipping\Service\GetItemPrices;
 use Auspost\Shipping\Service\CreateShipments;
+use Auspost\Shipping\Service\GetShipmentPrice;
 use Auspost\Shipping\Service\UpdateShipment;
+use Auspost\Shipping\Service\UpdateItems;
+use Auspost\Shipping\Service\CreateLabels;
+use Auspost\Shipping\Service\CreateOrderFromShipments;
+use Auspost\Shipping\Service\CreateOrderIncludingShipments;
+use Auspost\Shipping\Service\CreatePayment;
 use Guzzle\Common\Collection;
 use Guzzle\Common\Event;
 use Guzzle\Service\Client;
@@ -38,7 +44,21 @@ use Guzzle\Service\Description\ServiceDescription;
  */
 class ShippingClient extends Client
 {
-    const API_URL = 'https://digitalapi.auspost.com.au';
+    /**
+     * API Scheme
+     */
+    //const    API_SCHEME   = 'tls://';
+
+    /**
+     * API Host
+     */
+    const    API_HOST     = 'https://digitalapi.auspost.com.au';
+
+    /**
+     * API Port
+     * SSL port
+     */
+    //const    API_PORT     = 443;
 
     /**
      * @param array $config
@@ -52,14 +72,18 @@ class ShippingClient extends Client
 
         if (isset($config['developer_mode']) && is_bool($config['developer_mode'])) {
             $developerMode = $config['developer_mode'];
-            $config['base_url'] = self::API_URL . "/testbed";
+            //$config['base_url'] = self::API_SCHEME . self::API_HOST . "/testbed:" . self::API_PORT;
+            $config['base_url'] = self::API_HOST . "/testbed";
 
             //$developerMode = false;
             //$config['base_url'] = self::API_URL;
         } else {
             $developerMode = false;
-            $config['base_url'] = self::API_URL;
+            //$config['base_url'] = self::API_SCHEME . self::API_HOST  . ":" . self::API_PORT;
+            $config['base_url'] = self::API_HOST;
         }
+
+        //$config['curl'] = array(CURLOPT_SSLVERSION => 1);
 
         $default = array(
             'developer_mode' => $developerMode,
@@ -88,9 +112,10 @@ class ShippingClient extends Client
             'Basic ' . base64_encode($config->get('auth_key') . ':' . $config->get('auth_pass'))
         );
 
+        $client->getConfig()->setPath('request.options/headers/Host', self::API_HOST);
         $client->getConfig()->setPath('request.options/headers/Account-Number', $config['account_no']);
-        //$client->getConfig()->setPath('request.options/headers/Accept', 'application/json');
-        //$client->getConfig()->setPath('request.options/headers/Content-Type', 'application/json');
+        $client->getConfig()->setPath('request.options/headers/Accept', 'application/json');
+        $client->getConfig()->setPath('request.options/headers/Content-Type', 'application/json');
         $client->getConfig()->setPath('request.options/headers/Cache-Control', 'no-cache');
         $client->getConfig()->setPath('request.options/headers/Connection', 'close');
 
@@ -100,7 +125,7 @@ class ShippingClient extends Client
         }
 
         $client->setDescription(ServiceDescription::factory($servicePath));
-        $client->setSslVerification(false);
+        //$client->setSslVerification(false);
 
         /*
         client.create_request
@@ -200,6 +225,20 @@ class ShippingClient extends Client
                 }
 
                 if (
+                    preg_match("/shipping\/v1\/payments/", $event['request']->getPath())
+                    &&
+                    $event['request']->getMethod() === 'POST'
+                ) {
+                    $service = new CreatePayment([]);
+                    $body = json_decode($event['request']->getBody());
+                    //echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
+                    $validate = $service->validateRequest($event['request']->getBody());
+                    if(array_key_exists('argv', $_SERVER) && in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                    }
+                }
+
+                if (
                     preg_match("/shipping\/v1\/prices\/shipments$/", $event['request']->getPath())
                     &&
                     $event['request']->getMethod() === 'POST'
@@ -208,6 +247,22 @@ class ShippingClient extends Client
                     $body = json_decode($event['request']->getBody());
                     //echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
                     $validate = $service->validateRequest($event['request']->getBody());
+                    if(array_key_exists('argv', $_SERVER) && in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
+                    }
+                }
+
+                if (
+                    preg_match("/shipping\/v1\/shipments\/[a-z0-9]+\/items$/i", $event['request']->getPath())
+                    &&
+                    $event['request']->getMethod() === 'PUT'
+                ) {
+                    $service = new UpdateItems([]);
+                    $body = json_decode($event['request']->getBody());
+                    if(array_key_exists('argv', $_SERVER) && in_array('--debug', $_SERVER['argv'], true)) {
+                        echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
+                    }
+                    $validate = $service->validateRequest($body);
                     if(array_key_exists('argv', $_SERVER) && in_array('--debug', $_SERVER['argv'], true)) {
                         echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
                     }
@@ -265,7 +320,7 @@ class ShippingClient extends Client
                     $service = new CreateLabels([]);
                     $body = json_decode($event['request']->getBody());
                     //echo sprintf("%s->body: %s\n", __METHOD__, print_r($body, true));
-                    $validate = $service->validateRequest($event['request']->getBody());
+                    $validate = $service->validateRequest(json_decode($event['request']->getBody()));
                     if(array_key_exists('argv', $_SERVER) && in_array('--debug', $_SERVER['argv'], true)) {
                         echo sprintf("%s->validate: %s\n", __METHOD__, print_r($validate, true));
                     }

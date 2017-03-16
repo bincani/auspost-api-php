@@ -6,6 +6,10 @@
         {
             "name": "Fontis",
             "homepage": "http://www.fontis.com.au"
+        },
+        {
+            "name": "Factory X",
+            "email": "developers@factoryx.com.au"
         }
     ],
     "require": {

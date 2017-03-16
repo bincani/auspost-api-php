@@ -24,81 +24,27 @@
  */
 namespace Auspost\Shipping\Service;
 
-use JsonSchema\Validator;
-
 use \Exception;
-#use Guzzle\Common\Collection;
-#use Guzzle\Common\Event;
-#use Guzzle\Service\Client;
-use Guzzle\Service\Description\ServiceDescription;
+use Auspost\Shipping\Service\AbstractShippingService;
 
 /**
  * Class CreateShipments
  * @package Auspost\Shipping\Service
  */
-class CreateShipments extends ServiceDescription
+class CreateShipments extends AbstractShippingService
 {
-    protected $schema;
-    protected $schemaPath;
-
     /**
      * ShippingServiceGetItemPrices constructor.
      * @param array $config
-     * @throws Exception
      */
     public function __construct($config)
     {
         parent::__construct($config);
         $this->schemaPath = realpath(__DIR__ . '/CreateShipments/request.json');
-        if($this->isDebug()) {
-            echo sprintf("%s->schemaPath: %s\n", __METHOD__, $this->schemaPath);
-        }
-
         if (!file_exists($this->schemaPath)) {
             throw new Exception(sprintf("schema file '%s' not found", $this->schemaPath));
         }
 
-        //$this->schema = json_encode(file_get_contents($this->schemaPath));
         $this->schema = (object)['$ref' => 'file://' . $this->schemaPath];
-    }
-
-    /**
-     * @param $data
-     * @return bool
-     */
-    public function validateRequest($data)
-    {
-        // Validate
-        $validator = new Validator();
-
-        if($this->isDebug()) {
-            echo sprintf("%s->data: %s\n", __METHOD__, print_r($data, true));
-            //echo sprintf("%s->schema: %s\n", __METHOD__, print_r($this->schema, true));
-        }
-
-        $validator->check($data, $this->schema);
-        $retVal = true;
-        if (!$validator->isValid()) {
-            if($this->isDebug()) {
-                foreach ($validator->getErrors() as $error) {
-                    echo sprintf("Error: [%s] %s\n", $error['property'], $error['message']);
-                }
-            }
-            $retVal = $validator->getErrors();
-        }
-
-        if($this->isDebug()) {
-            echo sprintf("%s->retVal: %s\n", __METHOD__, print_r($retVal, true));
-        }
-
-        return $retVal;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isDebug()
-    {
-        return array_key_exists('argv', $_SERVER) && in_array('--debug', $_SERVER['argv'], true);
     }
 }

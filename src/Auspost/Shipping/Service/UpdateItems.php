@@ -24,56 +24,27 @@
  */
 namespace Auspost\Shipping\Service;
 
-use JsonSchema\Validator;
-
 use \Exception;
-#use Guzzle\Common\Collection;
-#use Guzzle\Common\Event;
-#use Guzzle\Service\Client;
-use Guzzle\Service\Description\ServiceDescription;
+use Auspost\Shipping\Service\AbstractShippingService;
 
 /**
+ * Class UpdateItems
+ * @package Auspost\Shipping\Service
  */
-class UpdateItems extends ServiceDescription
+class UpdateItems extends AbstractShippingService
 {
-    protected $schema;
-    protected $schemaPath;
-
     /**
      * ShippingServiceGetItemPrices constructor.
      * @param array $config
      */
-    public function __construct($config) {
+    public function __construct($config)
+    {
         parent::__construct($config);
         $this->schemaPath = realpath(__DIR__ . '/UpdateItems/request.json');
-        echo sprintf("%s->schemaPath: %s\n", __METHOD__, $this->schemaPath);
         if (!file_exists($this->schemaPath)) {
             throw new Exception(sprintf("schema file '%s' not found", $this->schemaPath));
         }
-        //$this->schema = json_encode(file_get_contents($this->schemaPath));
+
         $this->schema = (object)['$ref' => 'file://' . $this->schemaPath];
-    }
-
-    /**
-     * @param $data
-     * @return bool
-     */
-    public function validateRequest($data) {
-        // Validate
-        $validator = new Validator();
-
-        echo sprintf("%s->data: %s\n", __METHOD__, print_r($data, true));
-        echo sprintf("%s->schema: %s\n", __METHOD__, print_r($this->schema, true));
-
-        $validator->check($data, $this->schema);
-        $retVal = true;
-        if (!$validator->isValid()) {
-            foreach ($validator->getErrors() as $error) {
-                echo sprintf("Error: [%s] %s\n", $error['property'], $error['message']);
-            }
-            $retVal = $validator->getErrors();
-        }
-        echo sprintf("%s->retVal: %s\n", __METHOD__, print_r($retVal, true)) ;
-        return $retVal;
     }
 }
