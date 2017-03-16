@@ -65,7 +65,7 @@ class AddressState extends Enum
             throw new \Exception(sprintf("cannot normalise state '%s'!", $stateString));
         }
         else {
-            $state = strtoupper($state);
+            $state = strtoupper($stateString);
         }
         return $state;
     }
