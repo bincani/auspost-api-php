@@ -60,7 +60,8 @@ class AddressState extends Enum
         elseif (strlen($stateString) >= self::MAX_STATE_LEN) {
             $state = substr(strtoupper($stateString), 0, self::MAX_STATE_LEN);
         }
-        if (!in_array($state, self::$states)) {
+        //if (!in_array($state, self::$states)) {
+        if (!preg_grep(sprintf("/%s/i", $state), self::$states)) {
             throw new \Exception(sprintf("cannot normalise state '%s'!", $stateString));
         }
         return $state;
