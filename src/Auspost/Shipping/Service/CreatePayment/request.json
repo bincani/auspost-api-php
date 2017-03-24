@@ -28,7 +28,7 @@
                     "description": "The charge account number in which the cost of the order will be charged against."
                 }
             }
-        },
+        }
     },
     "required": ["order_id", "payment_method"]
 }

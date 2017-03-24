@@ -70,7 +70,7 @@ class ShippingClient extends Client
             echo sprintf("%s->config: %s\n", __METHOD__, print_r($config, true));
         }
 
-        if (isset($config['developer_mode']) && is_bool($config['developer_mode'])) {
+        if (isset($config['developer_mode']) && is_bool($config['developer_mode']) && $config['developer_mode']) {
             $developerMode = $config['developer_mode'];
             //$config['base_url'] = self::API_SCHEME . self::API_HOST . "/testbed:" . self::API_PORT;
             $config['base_url'] = self::API_HOST . "/testbed";

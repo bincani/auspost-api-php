@@ -124,14 +124,23 @@
         "DeleteShipment": {
             "httpMethod": "DELETE",
             "uri": "shipping/v1/shipments/{shipment_id}",
-            "summary": " This service deletes one or more shipments that have not been included in an order.",
+            "summary": " This service deletes one shipment that have not been included in an order.",
+            "responseClass": "Auspost\\Shipping\\Service\\Response\\DeleteShipmentResponse",
             "parameters": {
                 "shipment_id": {
                     "required": false,
                     "type": "string",
                     "description": "The shipment id you wish to delete",
                     "location": "uri"
-                },
+                }
+            }
+        },
+        "DeleteShipments": {
+            "httpMethod": "DELETE",
+            "uri": "shipping/v1/shipments?shipment_ids={shipment_ids}",
+            "summary": " This service deletes one or more shipments that have not been included in an order.",
+            "responseClass": "Auspost\\Shipping\\Service\\Response\\DeleteShipmentResponse",
+            "parameters": {
                 "shipment_ids": {
                     "required": false,
                     "type": "string",
