@@ -1,11 +1,11 @@
 <?php
 
-namespace Auspost\Shipping\Service\Response;
+namespace Auspost\Shipping\Service\GetOrderSummary;
 
 use Guzzle\Service\Command\ResponseClassInterface;
 use Guzzle\Service\Command\OperationCommand;
 
-class GetOrderSummaryResponse implements ResponseClassInterface {
+class Response implements ResponseClassInterface {
 
     /**
      * Create a response model object from a completed command

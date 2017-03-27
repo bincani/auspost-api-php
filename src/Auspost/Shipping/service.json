@@ -125,7 +125,7 @@
             "httpMethod": "DELETE",
             "uri": "shipping/v1/shipments/{shipment_id}",
             "summary": " This service deletes one shipment that have not been included in an order.",
-            "responseClass": "Auspost\\Shipping\\Service\\Response\\DeleteShipmentResponse",
+            "responseClass": "Auspost\\Shipping\\Service\\DeleteShipment\\Response",
             "parameters": {
                 "shipment_id": {
                     "required": false,
@@ -203,7 +203,7 @@
             "httpMethod": "GET",
             "uri": "shipping/v1/accounts/{account_number}/orders/{order_id}/summary",
             "summary": "This service returns the PDF order summary that contains a charges breakdown of the articles in the order.",
-            "responseClass": "Auspost\\Shipping\\Service\\Response\\GetOrderSummaryResponse",
+            "responseClass": "Auspost\\Shipping\\Service\\GetOrderSummary\\Response",
             "parameters": {
                 "account_number": {
                     "location": "uri",

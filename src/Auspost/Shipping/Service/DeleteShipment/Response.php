@@ -1,11 +1,11 @@
 <?php
 
-namespace Auspost\Shipping\Service\Response;
+namespace Auspost\Shipping\Service\DeleteShipment;
 
 use Guzzle\Service\Command\ResponseClassInterface;
 use Guzzle\Service\Command\OperationCommand;
 
-class DeleteShipmentResponse implements ResponseClassInterface {
+class Response implements ResponseClassInterface {
 
     /**
      * Create a response model object from a completed command
