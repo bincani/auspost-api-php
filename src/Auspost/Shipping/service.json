@@ -107,6 +107,7 @@
         "UpdateShipment": {
             "httpMethod": "PUT",
             "uri": "shipping/v1/shipments/{shipment_id}",
+            "responseClass": "Auspost\\Shipping\\Service\\UpdateShipment\\Response",
             "summary": "This service updates an existing shipment that has previously been created using the Create Shipment interface.",
             "parameters": {
                 "shipment_id": {
@@ -139,7 +140,7 @@
             "httpMethod": "DELETE",
             "uri": "shipping/v1/shipments?shipment_ids={shipment_ids}",
             "summary": " This service deletes one or more shipments that have not been included in an order.",
-            "responseClass": "Auspost\\Shipping\\Service\\Response\\DeleteShipmentResponse",
+            "responseClass": "Auspost\\Shipping\\Service\\DeleteShipment\\Response",
             "parameters": {
                 "shipment_ids": {
                     "required": false,
