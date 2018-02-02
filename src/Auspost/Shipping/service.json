@@ -261,7 +261,7 @@
                 },
                 "postcode": {
                     "required": true,
-                    "type": "integer",
+                    "type": "number",
                     "location": "query"
                 }
             }
